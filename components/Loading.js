@@ -30,6 +30,7 @@ export default function Loading() {
       <Box
         className="absolute bg-gray-100 bg-opacity-40 w-full  h-full z-[10000] overflow-hidden"
         sx={{
+          background: "rgba(237, 237, 237, 0.2)",
           position: "absolute",
           width: "100%",
           height: "100%",
