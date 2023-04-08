@@ -40,8 +40,9 @@ import {
 import Flag from "react-world-flags";
 import { Paper, SwipeableDrawer } from "@mui/material";
 import { ApplicationColor } from "../../constant/color";
-
 import { useTranslation } from "next-i18next";
+
+import Loading from "../Loading";
 
 export default function MiniDrawer({ children }) {
   const theme = useTheme();
@@ -363,6 +364,7 @@ export default function MiniDrawer({ children }) {
 
   return (
     <>
+      <Loading />
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar
