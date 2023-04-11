@@ -525,7 +525,6 @@ export default function MiniDrawer({ children }) {
               )}
             </IconButton>
             <IconButton
-              color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
@@ -537,7 +536,11 @@ export default function MiniDrawer({ children }) {
               <MenuIcon />
             </IconButton>
             <Box>
-              <Typography fontSize={25} fontWeight={700}>
+              <Typography
+                color={ApplicationColor.third}
+                fontSize={25}
+                fontWeight={700}
+              >
                 Coffee Shop
               </Typography>
             </Box>
@@ -560,24 +563,18 @@ export default function MiniDrawer({ children }) {
                 aria-controls={"fullscreen_id"}
                 aria-haspopup="true"
                 onClick={handleFullScreen}
-                color="inherit"
               >
-                {isFullScreen ? <FullscreenExit /> : <Fullscreen />}
+                {isFullScreen ? <FullscreenExit color="" /> : <Fullscreen />}
               </IconButton>
               <IconButton
                 size="large"
                 aria-controls={"lang_id"}
                 aria-haspopup="true"
                 onClick={handleLanguageSelector}
-                color="inherit"
               >
                 <Language />
               </IconButton>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
+              <IconButton size="large" aria-label="show 17 new notifications">
                 <Badge badgeContent={17} color="error">
                   <NotificationsIcon />
                 </Badge>
@@ -590,7 +587,6 @@ export default function MiniDrawer({ children }) {
                 aria-controls={"menu_id"}
                 aria-haspopup="true"
                 onClick={() => {}}
-                color="inherit"
               >
                 <AccountCircle />
               </IconButton>
@@ -602,7 +598,7 @@ export default function MiniDrawer({ children }) {
                 aria-controls={"mobile_menu_id"}
                 aria-haspopup="true"
                 onClick={() => {}}
-                color="inherit"
+                color="secondary"
               >
                 <SearchIcon />
               </IconButton>
@@ -614,7 +610,6 @@ export default function MiniDrawer({ children }) {
                 aria-controls={"mobile_menu_id"}
                 aria-haspopup="true"
                 onClick={handleMobileMenuOpen}
-                color="inherit"
               >
                 <MoreIcon />
               </IconButton>
@@ -735,10 +730,9 @@ const Drawer = styled(MuiDrawer, {
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
+  border: "1px solid #f5f5f5",
+
+  boxShadow: theme.shadows[1],
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
@@ -756,10 +750,10 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  color: "GrayText",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
