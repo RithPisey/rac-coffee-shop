@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, useTheme, ThemeProvider } from "@mui/material/styles";
+import { styled, useTheme, ThemeProvider, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -16,6 +16,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import InputBase from "@mui/material/InputBase";
+import SearchIcon from "@mui/icons-material/SearchOutlined";
 import { useRouter } from "next/router";
 
 import Badge from "@mui/material/Badge";
@@ -25,14 +27,21 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import {
+  AddBox,
+  Category,
   Dashboard,
   FmdGood,
+  Fullscreen,
+  FullscreenExit,
   Home,
   Inventory,
   Language,
+  LocalOffer,
   Logout,
+  PersonAdd,
   ProductionQuantityLimits,
   Receipt,
+  RecentActors,
   Settings,
   ShoppingCart,
   Storefront,
@@ -41,7 +50,7 @@ import Flag from "react-world-flags";
 import { Paper, SwipeableDrawer } from "@mui/material";
 import { ApplicationColor } from "../../constant/color";
 import { useTranslation } from "next-i18next";
-
+import fscreen from "fscreen";
 import Loading from "../Loading";
 
 export default function MiniDrawer({ children }) {
@@ -51,6 +60,7 @@ export default function MiniDrawer({ children }) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [isFullScreen, setIsFullScreen] = React.useState(false);
   const { t } = useTranslation();
   const { pathname, locale, locales, push, asPath } = useRouter();
   const handleDrawerOpen = () => {
@@ -86,6 +96,14 @@ export default function MiniDrawer({ children }) {
   const handleMobileMenuClose = (event) => {
     setMobileMoreAnchorEl(null);
   };
+  const handleFullScreen = (e) => {
+    if (!isFullScreen) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+    setIsFullScreen(!isFullScreen);
+  };
 
   const ListContainer = () => {
     return (
@@ -100,6 +118,8 @@ export default function MiniDrawer({ children }) {
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
+                backgroundColor: ApplicationColor.third,
+                borderRadius: "0 25px 25px 0",
                 px: 2.5,
               }}
             >
@@ -170,6 +190,72 @@ export default function MiniDrawer({ children }) {
               />
             </ListItemButton>
           </ListItem>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <AddBox />
+              </ListItemIcon>
+              <ListItemText
+                primary={"Create Product"}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <Category />
+              </ListItemIcon>
+              <ListItemText
+                primary={"Category"}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <LocalOffer />
+              </ListItemIcon>
+              <ListItemText primary={"Brands"} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
         </List>
         <Divider />
         <List>
@@ -237,6 +323,58 @@ export default function MiniDrawer({ children }) {
                 <Storefront />
               </ListItemIcon>
               <ListItemText primary={"POS"} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem sx={{ display: !open ? "none" : "block" }}>
+            <Typography fontWeight={600}>User Management</Typography>
+          </ListItem>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <PersonAdd />
+              </ListItemIcon>
+              <ListItemText
+                primary={"Create New User"}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <RecentActors />
+              </ListItemIcon>
+              <ListItemText
+                primary={"View User"}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
             </ListItemButton>
           </ListItem>
         </List>
@@ -403,8 +541,29 @@ export default function MiniDrawer({ children }) {
                 Coffee Shop
               </Typography>
             </Box>
+            <Box>
+              <Search sx={{ display: { xs: "none", md: "flex" } }}>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
+            </Box>
             <Box sx={{ flexGrow: 1 }} />
+
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <IconButton
+                size="large"
+                aria-controls={"fullscreen_id"}
+                aria-haspopup="true"
+                onClick={handleFullScreen}
+                color="inherit"
+              >
+                {isFullScreen ? <FullscreenExit /> : <Fullscreen />}
+              </IconButton>
               <IconButton
                 size="large"
                 aria-controls={"lang_id"}
@@ -434,6 +593,18 @@ export default function MiniDrawer({ children }) {
                 color="inherit"
               >
                 <AccountCircle />
+              </IconButton>
+            </Box>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={"mobile_menu_id"}
+                aria-haspopup="true"
+                onClick={() => {}}
+                color="inherit"
+              >
+                <SearchIcon />
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -559,6 +730,46 @@ const Drawer = styled(MuiDrawer, {
     ...closedMixin(theme),
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
+}));
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
 }));
 
 // ###
