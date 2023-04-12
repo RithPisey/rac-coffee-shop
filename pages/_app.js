@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import Head from "next/head";
 import Layout from "../layouts/default";
 import { appWithTranslation } from "next-i18next";
+import Loading from "../components/Loading";
 function App({ Component, pageProps }) {
   return (
     <>
@@ -14,6 +15,7 @@ function App({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Provider store={store}>
+        <Loading />
         <Layout>
           <Component {...pageProps} />
         </Layout>

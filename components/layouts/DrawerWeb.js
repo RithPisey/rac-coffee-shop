@@ -502,7 +502,6 @@ export default function MiniDrawer({ children }) {
 
   return (
     <>
-      <Loading />
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar
