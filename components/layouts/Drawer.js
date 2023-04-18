@@ -18,6 +18,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
+import Tooltip from "@mui/material/Tooltip";
 import { useRouter } from "next/router";
 
 import Badge from "@mui/material/Badge";
@@ -52,6 +53,22 @@ import { ApplicationColor } from "../../constant/color";
 import { useTranslation } from "next-i18next";
 import fscreen from "fscreen";
 import Loading from "../Loading";
+
+const keywords = {
+  home: "Home",
+  dashboard: "Dashboard",
+  product: "Product",
+  createProduct: "Create Product",
+  category: "Category",
+  brands: "Brands",
+  sale: "Sale",
+  invoice: "Invoice",
+  pos: "POS",
+  createNewUser: "Create new user",
+  viewUser: "View User",
+  settings: "Settings",
+  logout: "Logouts",
+};
 
 export default function MiniDrawer({ children }) {
   const theme = useTheme();
@@ -114,52 +131,65 @@ export default function MiniDrawer({ children }) {
             <Typography fontWeight={600}>Main</Typography>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                backgroundColor: ApplicationColor.third,
-                borderRadius: "0 25px 25px 0",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.home}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  backgroundColor: ApplicationColor.third,
+                  borderRadius: "0 25px 25px 0",
+                  px: 2.5,
                 }}
               >
-                <Home />
-              </ListItemIcon>
-              <ListItemText
-                primary={t("home")}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Home />
+                </ListItemIcon>
+                <ListItemText
+                  primary={t(keywords.home)}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.dashboard}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  borderRadius: "0 25px 25px 0",
+                  px: 2.5,
                 }}
               >
-                <Dashboard />
-              </ListItemIcon>
-              <ListItemText
-                primary={t("dashboard")}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Dashboard />
+                </ListItemIcon>
+                <ListItemText
+                  primary={t(keywords.dashboard)}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
         </List>
         <Divider />
@@ -168,93 +198,124 @@ export default function MiniDrawer({ children }) {
             <Typography fontWeight={600}>Products</Typography>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.product}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  borderRadius: "0 25px 25px 0",
                 }}
               >
-                <Inventory />
-              </ListItemIcon>
-              <ListItemText
-                primary={"Product"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Inventory />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.product}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.createProduct}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  borderRadius: "0 25px 25px 0",
                 }}
               >
-                <AddBox />
-              </ListItemIcon>
-              <ListItemText
-                primary={"Create Product"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AddBox />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.createProduct}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.category}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  borderRadius: "0 25px 25px 0",
+                  px: 2.5,
                 }}
               >
-                <Category />
-              </ListItemIcon>
-              <ListItemText
-                primary={"Category"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Category />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.category}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.brands}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  borderRadius: "0 25px 25px 0",
                 }}
               >
-                <LocalOffer />
-              </ListItemIcon>
-              <ListItemText primary={"Brands"} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <LocalOffer />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.brands}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
         </List>
         <Divider />
@@ -263,67 +324,90 @@ export default function MiniDrawer({ children }) {
             <Typography fontWeight={600}>Sales</Typography>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.sale}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  borderRadius: "0 25px 25px 0",
                 }}
               >
-                <ShoppingCart />
-              </ListItemIcon>
-              <ListItemText primary={"Sale"} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <ShoppingCart />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.sale}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.invoice}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  borderRadius: "0 25px 25px 0",
                 }}
               >
-                <Receipt />
-              </ListItemIcon>
-              <ListItemText
-                primary={"Invoice"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Receipt />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.invoice}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
+            <Tooltip title={open ? null : keywords.pos} placement="right" arrow>
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  borderRadius: "0 25px 25px 0",
                 }}
               >
-                <Storefront />
-              </ListItemIcon>
-              <ListItemText primary={"POS"} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Storefront />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.pos}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
         </List>
         <Divider />
@@ -332,50 +416,65 @@ export default function MiniDrawer({ children }) {
             <Typography fontWeight={600}>User Management</Typography>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.createNewUser}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  borderRadius: "0 25px 25px 0",
                 }}
               >
-                <PersonAdd />
-              </ListItemIcon>
-              <ListItemText
-                primary={"Create New User"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                    borderRadius: "0 25px 25px 0",
+                  }}
+                >
+                  <PersonAdd />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.createNewUser}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.viewUser}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  borderRadius: "0 25px 25px 0",
                 }}
               >
-                <RecentActors />
-              </ListItemIcon>
-              <ListItemText
-                primary={"View User"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <RecentActors />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.viewUser}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
         </List>
         <Divider />
@@ -384,47 +483,64 @@ export default function MiniDrawer({ children }) {
             <Typography fontWeight={600}>Settings</Typography>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.settings}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  borderRadius: "0 25px 25px 0",
                 }}
               >
-                <Settings />
-              </ListItemIcon>
-              <ListItemText
-                primary={"Settings"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Settings />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.settings}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+            <Tooltip
+              title={open ? null : keywords.logout}
+              placement="right"
+              arrow
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  borderRadius: "0 25px 25px 0",
                 }}
               >
-                <Logout />
-              </ListItemIcon>
-              <ListItemText primary={"Logout"} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Logout />
+                </ListItemIcon>
+                <ListItemText
+                  primary={keywords.logout}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
         </List>
       </>
@@ -513,7 +629,7 @@ export default function MiniDrawer({ children }) {
             <IconButton
               onClick={handleDrawerClose}
               sx={{
-                marginRight: 5,
+                marginRight: 2,
                 ...(!open && { display: "none" }),
               }}
             >
@@ -528,7 +644,7 @@ export default function MiniDrawer({ children }) {
               onClick={handleDrawerOpen}
               edge="start"
               sx={{
-                marginRight: 5,
+                marginRight: 2,
                 ...(open && { display: "none" }),
               }}
             >
@@ -543,6 +659,7 @@ export default function MiniDrawer({ children }) {
                 Coffee Shop
               </Typography>
             </Box>
+            <Box sx={{ flexGrow: 1 }} />
             <Box>
               <Search sx={{ display: { xs: "none", md: "flex" } }}>
                 <SearchIconWrapper>
@@ -554,8 +671,6 @@ export default function MiniDrawer({ children }) {
                 />
               </Search>
             </Box>
-            <Box sx={{ flexGrow: 1 }} />
-
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
                 size="large"
@@ -631,7 +746,7 @@ export default function MiniDrawer({ children }) {
             sx={{ display: { xs: "block", sm: "none" } }}
           >
             <Box sx={{ width: drawerWidth }}>
-              <ListContainer />
+              <ListContainer open={open} />
             </Box>
           </SwipeableDrawer>
         </DrawerSwiperResponsive>
@@ -707,6 +822,7 @@ const AppBar = styled(MuiAppBar, {
     }),
   }),
   backgroundColor: ApplicationColor.secondary,
+  boxShadow: "none",
 }));
 
 const Drawer = styled(MuiDrawer, {
@@ -716,6 +832,7 @@ const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
+  ".MuiDrawer-paper": { borderWidth: 0 },
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),
@@ -728,10 +845,8 @@ const Drawer = styled(MuiDrawer, {
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  border: "1px solid #f5f5f5",
-
-  boxShadow: theme.shadows[1],
+  borderRadius: "30px",
+  border: "1px solid #e0e0e0",
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
@@ -742,9 +857,10 @@ const Search = styled("div")(({ theme }) => ({
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
+  padding: theme.spacing(0, 1),
   height: "100%",
   position: "absolute",
+  top: "2px",
   pointerEvents: "none",
   display: "flex",
   alignItems: "center",
