@@ -51,25 +51,7 @@ import Flag from "react-world-flags";
 import { Paper, SwipeableDrawer } from "@mui/material";
 import { ApplicationColor } from "../../constant/color";
 import { useTranslation } from "next-i18next";
-import fscreen from "fscreen";
-import Loading from "../Loading";
-
-const keywords = {
-  home: "Home",
-  dashboard: "Dashboard",
-  product: "Product",
-  createProduct: "Create Product",
-  category: "Category",
-  brands: "Brands",
-  sale: "Sale",
-  invoice: "Invoice",
-  pos: "POS",
-  createNewUser: "Create new user",
-  viewUser: "View User",
-  settings: "Settings",
-  logout: "Logouts",
-};
-
+import { useId } from "react";
 export default function MiniDrawer({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
@@ -77,9 +59,25 @@ export default function MiniDrawer({ children }) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [isFullScreen, setIsFullScreen] = React.useState(false);
+  const isFullScreen = React.useRef(false);
+  // const isFullScreenMemo = React.useMemo(() => isFullScreen, [isFullScreen]);
   const { t } = useTranslation();
   const { pathname, locale, locales, push, asPath } = useRouter();
+  const keywords = {
+    home: "Home",
+    dashboard: "Dashboard",
+    product: "Product",
+    createProduct: "Create Product",
+    category: "Category",
+    brands: "Brands",
+    sale: "Sale",
+    invoice: "Invoice",
+    pos: "POS",
+    createNewUser: "Create new user",
+    viewUser: "View User",
+    settings: "Settings",
+    logout: "Logouts",
+  };
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -113,16 +111,25 @@ export default function MiniDrawer({ children }) {
   const handleMobileMenuClose = (event) => {
     setMobileMoreAnchorEl(null);
   };
+  // const setFullScreen = (e) => {
+  //   isFullScreen.current = !isFullScreen.current;
+  //   document.documentElement.requestFullscreen();
+  // };
+  // const exitFullscreen = (e) => {
+  //   isFullScreen.current = !isFullScreen.current;
+  //   document.exitFullscreen();
+  // };
+
   const handleFullScreen = (e) => {
-    if (!isFullScreen) {
+    if (!isFullScreen.current) {
       document.documentElement.requestFullscreen();
     } else {
       document.exitFullscreen();
     }
-    setIsFullScreen(!isFullScreen);
+    isFullScreen.current = !isFullScreen.current;
   };
 
-  const ListContainer = () => {
+  function ListContainer() {
     return (
       <>
         <DrawerHeader sx={{ marginBottom: "10px" }}></DrawerHeader>
@@ -545,7 +552,7 @@ export default function MiniDrawer({ children }) {
         </List>
       </>
     );
-  };
+  }
 
   const renderLanguageMenu = (
     <Menu
@@ -674,12 +681,31 @@ export default function MiniDrawer({ children }) {
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
                 size="large"
-                aria-controls={"fullscreen_id"}
+                aria-controls={"exitfullscreen_id"}
                 aria-haspopup="true"
-                onClick={handleFullScreen}
+                onClick={() => handleFullScreen()}
               >
-                {isFullScreen ? <FullscreenExit color="" /> : <Fullscreen />}
+                {isFullScreen.current ? <FullscreenExit /> : <Fullscreen />}
               </IconButton>
+              {/* {isFullScreen.current ? (
+                <IconButton
+                  size="large"
+                  aria-controls={"exitfullscreen_id"}
+                  aria-haspopup="true"
+                  onClick={() => exitFullscreen()}
+                >
+                  <FullscreenExit />
+                </IconButton>
+              ) : (
+                <IconButton
+                  size="large"
+                  aria-controls={"fullscreen_id"}
+                  aria-haspopup="true"
+                  onClick={() => setFullScreen()}
+                >
+                  <Fullscreen />
+                </IconButton>
+              )} */}
               <IconButton
                 size="large"
                 aria-controls={"lang_id"}

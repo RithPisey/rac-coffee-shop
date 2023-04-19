@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import { useEffect } from "react";
 import { store } from "../store/app";
 import { Provider } from "react-redux";
 import Head from "next/head";
@@ -6,6 +7,18 @@ import Layout from "../layouts/default";
 import { appWithTranslation } from "next-i18next";
 import Loading from "../components/Loading";
 function App({ Component, pageProps }) {
+  useEffect(() => {
+    let timeout;
+    if (typeof window !== "undefined") {
+      const loader = document.getElementById("globalLoader");
+      if (loader) {
+        timeout = setTimeout(() => {
+          loader.remove();
+        }, 3000);
+      }
+    }
+    return () => clearTimeout(timeout);
+  }, []);
   return (
     <>
       <Head>
