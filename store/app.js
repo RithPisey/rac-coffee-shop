@@ -3,7 +3,7 @@ import globalReducer from "./global/globalSlice";
 import { apiSlice } from "../api/apiSlice";
 export const store = configureStore({
   reducer: {
-    counter: globalReducer,
+    global: globalReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
 });

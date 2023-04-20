@@ -5,8 +5,17 @@ import { Provider } from "react-redux";
 import Head from "next/head";
 import Layout from "../layouts/default";
 import { appWithTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 import Loading from "../components/Loading";
+import localfont from "next/font/local";
+const battambang = localfont({
+  src: "../public/fonts/Battambang-Regular.ttf",
+});
+const roboto = localfont({
+  src: "../public/fonts/Roboto-Regular.ttf",
+});
 function App({ Component, pageProps }) {
+  const router = useRouter();
   useEffect(() => {
     let timeout;
     if (typeof window !== "undefined") {
@@ -29,9 +38,19 @@ function App({ Component, pageProps }) {
       </Head>
       <Provider store={store}>
         <Loading />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <main
+          className={
+            router.locale === "kh" ? battambang.className : roboto.className
+          }
+        >
+          <Layout
+            font={
+              router.locale === "kh" ? battambang.className : roboto.className
+            }
+          >
+            <Component {...pageProps} />
+          </Layout>
+        </main>
       </Provider>
     </>
   );

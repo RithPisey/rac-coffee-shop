@@ -52,31 +52,40 @@ import { Paper, SwipeableDrawer } from "@mui/material";
 import { ApplicationColor } from "../../constant/color";
 import { useTranslation } from "next-i18next";
 import { useId } from "react";
-export default function MiniDrawer({ children }) {
+import { useSelector, useDispatch } from "react-redux";
+import { setIsZoom } from "../../store/global/globalSlice";
+
+export default function MiniDrawer({ children, font }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const isFullScreen = React.useRef(false);
+  // const isFullScreen = React.useRef(false);
   // const isFullScreenMemo = React.useMemo(() => isFullScreen, [isFullScreen]);
   const { t } = useTranslation();
   const { pathname, locale, locales, push, asPath } = useRouter();
+  const isFullScreen = useSelector((state) => state.global.isZoom);
+  const dispatch = useDispatch();
   const keywords = {
-    home: "Home",
-    dashboard: "Dashboard",
-    product: "Product",
-    createProduct: "Create Product",
-    category: "Category",
-    brands: "Brands",
-    sale: "Sale",
-    invoice: "Invoice",
-    pos: "POS",
-    createNewUser: "Create new user",
-    viewUser: "View User",
-    settings: "Settings",
-    logout: "Logouts",
+    home: "home",
+    dashboard: "dashboard",
+    products: "products",
+    createProduct: "create-product",
+    category: "category",
+    brands: "brands",
+    sale: "sale",
+    invoice: "invoice",
+    pos: "pos",
+    createNewUser: "create-new-user",
+    viewUser: "view-user",
+    settings: "settings",
+    logout: "logout",
+    main: "main",
+    product: "product",
+    sales: "sales",
+    userManagement: "user-management",
   };
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -100,7 +109,6 @@ export default function MiniDrawer({ children }) {
   };
 
   const handleLanguageChange = (l) => (event) => {
-    console.log(l);
     push(asPath, undefined, { locale: l });
     handleLanguageMenuClose();
   };
@@ -123,23 +131,26 @@ export default function MiniDrawer({ children }) {
   const handleFullScreen = (e) => {
     if (!isFullScreen.current) {
       document.documentElement.requestFullscreen();
+      dispatch(setIsZoom(true));
     } else {
       document.exitFullscreen();
+      dispatch(setIsZoom(false));
     }
-    isFullScreen.current = !isFullScreen.current;
   };
 
   function ListContainer() {
     return (
-      <>
+      <Box>
         <DrawerHeader sx={{ marginBottom: "10px" }}></DrawerHeader>
         <List>
           <ListItem sx={{ display: !open ? "none" : "block" }}>
-            <Typography fontWeight={600}>Main</Typography>
+            <Typography className={font} fontWeight={600}>
+              {t(keywords.main)}
+            </Typography>
           </ListItem>
           <ListItem disablePadding>
             <Tooltip
-              title={open ? null : keywords.home}
+              title={open ? null : t(keywords.home)}
               placement="right"
               arrow
             >
@@ -161,16 +172,15 @@ export default function MiniDrawer({ children }) {
                 >
                   <Home />
                 </ListItemIcon>
-                <ListItemText
-                  primary={t(keywords.home)}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>{t(keywords.home)}</Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
           <ListItem disablePadding>
             <Tooltip
-              title={open ? null : keywords.dashboard}
+              title={open ? null : t(keywords.dashboard)}
               placement="right"
               arrow
             >
@@ -191,10 +201,11 @@ export default function MiniDrawer({ children }) {
                 >
                   <Dashboard />
                 </ListItemIcon>
-                <ListItemText
-                  primary={t(keywords.dashboard)}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>
+                    {t(keywords.dashboard)}
+                  </Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
@@ -202,11 +213,13 @@ export default function MiniDrawer({ children }) {
         <Divider />
         <List>
           <ListItem sx={{ display: !open ? "none" : "block" }}>
-            <Typography fontWeight={600}>Products</Typography>
+            <Typography className={font} fontWeight={600}>
+              {t(keywords.products)}
+            </Typography>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip
-              title={open ? null : keywords.product}
+              title={open ? null : t(keywords.product)}
               placement="right"
               arrow
             >
@@ -227,16 +240,17 @@ export default function MiniDrawer({ children }) {
                 >
                   <Inventory />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.product}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>
+                    {t(keywords.product)}
+                  </Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip
-              title={open ? null : keywords.createProduct}
+              title={open ? null : t(keywords.createProduct)}
               placement="right"
               arrow
             >
@@ -257,16 +271,17 @@ export default function MiniDrawer({ children }) {
                 >
                   <AddBox />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.createProduct}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>
+                    {t(keywords.createProduct)}
+                  </Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip
-              title={open ? null : keywords.category}
+              title={open ? null : t(keywords.category)}
               placement="right"
               arrow
             >
@@ -287,16 +302,17 @@ export default function MiniDrawer({ children }) {
                 >
                   <Category />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.category}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>
+                    {t(keywords.category)}
+                  </Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip
-              title={open ? null : keywords.brands}
+              title={open ? null : t(keywords.brands)}
               placement="right"
               arrow
             >
@@ -317,10 +333,9 @@ export default function MiniDrawer({ children }) {
                 >
                   <LocalOffer />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.brands}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>{t(keywords.brands)}</Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
@@ -328,11 +343,13 @@ export default function MiniDrawer({ children }) {
         <Divider />
         <List>
           <ListItem sx={{ display: !open ? "none" : "block" }}>
-            <Typography fontWeight={600}>Sales</Typography>
+            <Typography className={font} fontWeight={600}>
+              {t(keywords.sales)}
+            </Typography>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip
-              title={open ? null : keywords.sale}
+              title={open ? null : t(keywords.sale)}
               placement="right"
               arrow
             >
@@ -353,16 +370,15 @@ export default function MiniDrawer({ children }) {
                 >
                   <ShoppingCart />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.sale}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>{t(keywords.sale)}</Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip
-              title={open ? null : keywords.invoice}
+              title={open ? null : t(keywords.invoice)}
               placement="right"
               arrow
             >
@@ -383,15 +399,21 @@ export default function MiniDrawer({ children }) {
                 >
                   <Receipt />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.invoice}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>
+                    {t(keywords.invoice)}
+                  </Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
-            <Tooltip title={open ? null : keywords.pos} placement="right" arrow>
+            <Tooltip
+              title={open ? null : t(keywords.pos)}
+              placement="right"
+              arrow
+            >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -409,10 +431,10 @@ export default function MiniDrawer({ children }) {
                 >
                   <Storefront />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.pos}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>{t(keywords.pos)}</Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
@@ -420,11 +442,13 @@ export default function MiniDrawer({ children }) {
         <Divider />
         <List>
           <ListItem sx={{ display: !open ? "none" : "block" }}>
-            <Typography fontWeight={600}>User Management</Typography>
+            <Typography className={font} fontWeight={600}>
+              {t(keywords.userManagement)}
+            </Typography>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip
-              title={open ? null : keywords.createNewUser}
+              title={open ? null : t(keywords.createNewUser)}
               placement="right"
               arrow
             >
@@ -446,10 +470,12 @@ export default function MiniDrawer({ children }) {
                 >
                   <PersonAdd />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.createNewUser}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>
+                    {t(keywords.createNewUser)}
+                  </Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
@@ -476,10 +502,11 @@ export default function MiniDrawer({ children }) {
                 >
                   <RecentActors />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.viewUser}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>
+                    {t(keywords.viewUser)}
+                  </Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
@@ -487,11 +514,13 @@ export default function MiniDrawer({ children }) {
         <Divider />
         <List>
           <ListItem sx={{ display: !open ? "none" : "block" }}>
-            <Typography fontWeight={600}>Settings</Typography>
+            <Typography className={font} fontWeight={600}>
+              {t(keywords.settings)}
+            </Typography>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip
-              title={open ? null : keywords.settings}
+              title={open ? null : t(keywords.settings)}
               placement="right"
               arrow
             >
@@ -512,16 +541,17 @@ export default function MiniDrawer({ children }) {
                 >
                   <Settings />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.settings}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>
+                    {t(keywords.settings)}
+                  </Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip
-              title={open ? null : keywords.logout}
+              title={open ? null : t(keywords.logout)}
               placement="right"
               arrow
             >
@@ -542,15 +572,14 @@ export default function MiniDrawer({ children }) {
                 >
                   <Logout />
                 </ListItemIcon>
-                <ListItemText
-                  primary={keywords.logout}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                  <Typography className={font}>{t(keywords.logout)}</Typography>
+                </ListItemText>
               </ListItemButton>
             </Tooltip>
           </ListItem>
         </List>
-      </>
+      </Box>
     );
   }
 
@@ -572,11 +601,15 @@ export default function MiniDrawer({ children }) {
     >
       <MenuItem onClick={handleLanguageChange("kh")}>
         <Flag width={19} code="kh" />{" "}
-        <Typography margin={"0 20px"}>ភាសាខ្មែរ</Typography>
+        <Typography className={font} margin={"0 20px"}>
+          ភាសាខ្មែរ
+        </Typography>
       </MenuItem>
       <MenuItem onClick={handleLanguageChange("en")}>
         <Flag width={19} code="GB-ENG" />{" "}
-        <Typography margin={"0 20px"}>English</Typography>
+        <Typography className={font} margin={"0 20px"}>
+          English
+        </Typography>
       </MenuItem>
     </Menu>
   );
@@ -622,7 +655,6 @@ export default function MiniDrawer({ children }) {
       </MenuItem>
     </Menu>
   );
-
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -640,11 +672,7 @@ export default function MiniDrawer({ children }) {
                 ...(!open && { display: "none" }),
               }}
             >
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
+              <ChevronLeftIcon />
             </IconButton>
             <IconButton
               aria-label="open drawer"
@@ -659,6 +687,7 @@ export default function MiniDrawer({ children }) {
             </IconButton>
             <Box>
               <Typography
+                className={font}
                 color={ApplicationColor.third}
                 fontSize={25}
                 fontWeight={700}
@@ -685,27 +714,8 @@ export default function MiniDrawer({ children }) {
                 aria-haspopup="true"
                 onClick={() => handleFullScreen()}
               >
-                {isFullScreen.current ? <FullscreenExit /> : <Fullscreen />}
+                {isFullScreen ? <FullscreenExit /> : <Fullscreen />}
               </IconButton>
-              {/* {isFullScreen.current ? (
-                <IconButton
-                  size="large"
-                  aria-controls={"exitfullscreen_id"}
-                  aria-haspopup="true"
-                  onClick={() => exitFullscreen()}
-                >
-                  <FullscreenExit />
-                </IconButton>
-              ) : (
-                <IconButton
-                  size="large"
-                  aria-controls={"fullscreen_id"}
-                  aria-haspopup="true"
-                  onClick={() => setFullScreen()}
-                >
-                  <Fullscreen />
-                </IconButton>
-              )} */}
               <IconButton
                 size="large"
                 aria-controls={"lang_id"}
