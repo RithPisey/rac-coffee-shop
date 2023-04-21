@@ -13,7 +13,6 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.15",
-    "@next/font": "^13.3.0",
     "@reduxjs/toolkit": "^1.9.3",
     "fscreen": "^1.2.0",
     "i18next": "^22.4.14",

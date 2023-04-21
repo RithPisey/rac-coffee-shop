@@ -11,7 +11,6 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -51,7 +50,6 @@ import Flag from "react-world-flags";
 import { Paper, SwipeableDrawer } from "@mui/material";
 import { ApplicationColor } from "../../constant/color";
 import { useTranslation } from "next-i18next";
-import { useId } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsZoom } from "../../store/global/globalSlice";
 
@@ -62,8 +60,6 @@ export default function MiniDrawer({ children, font }) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  // const isFullScreen = React.useRef(false);
-  // const isFullScreenMemo = React.useMemo(() => isFullScreen, [isFullScreen]);
   const { t } = useTranslation();
   const { pathname, locale, locales, push, asPath } = useRouter();
   const isFullScreen = useSelector((state) => state.global.isZoom);
@@ -119,17 +115,9 @@ export default function MiniDrawer({ children, font }) {
   const handleMobileMenuClose = (event) => {
     setMobileMoreAnchorEl(null);
   };
-  // const setFullScreen = (e) => {
-  //   isFullScreen.current = !isFullScreen.current;
-  //   document.documentElement.requestFullscreen();
-  // };
-  // const exitFullscreen = (e) => {
-  //   isFullScreen.current = !isFullScreen.current;
-  //   document.exitFullscreen();
-  // };
 
   const handleFullScreen = (e) => {
-    if (!isFullScreen.current) {
+    if (!isFullScreen) {
       document.documentElement.requestFullscreen();
       dispatch(setIsZoom(true));
     } else {
@@ -692,7 +680,7 @@ export default function MiniDrawer({ children, font }) {
                 fontSize={25}
                 fontWeight={700}
               >
-                Coffee Shop
+                LOGO
               </Typography>
             </Box>
             <Box sx={{ flexGrow: 1 }} />
@@ -748,7 +736,6 @@ export default function MiniDrawer({ children, font }) {
                 aria-controls={"mobile_menu_id"}
                 aria-haspopup="true"
                 onClick={() => {}}
-                color="secondary"
               >
                 <SearchIcon />
               </IconButton>
