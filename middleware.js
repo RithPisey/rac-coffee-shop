@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 // This function can be marked `async` if using `await` inside
 export function middleware(request) {
   //   return NextResponse.redirect(new URL("/about-2", request.url));
-  //   console.log(request);
+  console.log(request);
 }
 
 // See "Matching Paths" below to learn more

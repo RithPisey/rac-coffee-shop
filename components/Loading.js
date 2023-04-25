@@ -39,7 +39,7 @@ export default function Loading() {
         }}
       >
         <Box sx={{ position: "relative", left: "45%", top: "45%" }}>
-          <ThreeCircles color="#8bc34a" />
+          <ThreeCircles width={"100"} height={"100"} color="#8bc34a" />
         </Box>
       </Box>
     )

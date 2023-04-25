@@ -776,7 +776,7 @@ export default function MiniDrawer({ children, font }) {
 
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />
-          {children}
+          <Box sx={{ overflow: "auto", height: "90vh" }}>{children}</Box>
         </Box>
       </Box>
     </>

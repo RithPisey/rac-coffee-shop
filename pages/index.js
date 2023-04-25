@@ -7,6 +7,7 @@ export default function Home() {
     <>
       <h1>{t("hello-world")}</h1>
       <Link href={"/about"}>about</Link>
+      <Link href={"/product"}>product</Link>
     </>
   );
 }
