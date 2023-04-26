@@ -1,5 +1,4 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import Loading from "../components/Loading";
 import { ThreeCircles } from "react-loader-spinner";
 
 export default function Document() {

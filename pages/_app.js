@@ -3,16 +3,19 @@ import { useEffect } from "react";
 import { store } from "../store/app";
 import { Provider } from "react-redux";
 import Head from "next/head";
-import Layout from "../layouts/default";
 import { appWithTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import Loading from "../components/Loading";
 import localfont from "next/font/local";
+import dynamic from "next/dynamic";
 const battambang = localfont({
   src: "../public/fonts/Battambang-Regular.ttf",
 });
 const roboto = localfont({
   src: "../public/fonts/Roboto-Regular.ttf",
+});
+const DynamicLayout = dynamic(() => import("../layouts/default"), {
+  ssr: false,
 });
 function App({ Component, pageProps }) {
   const router = useRouter();
@@ -43,13 +46,13 @@ function App({ Component, pageProps }) {
             router.locale === "kh" ? battambang.className : roboto.className
           }
         >
-          <Layout
+          <DynamicLayout
             font={
               router.locale === "kh" ? battambang.className : roboto.className
             }
           >
             <Component {...pageProps} />
-          </Layout>
+          </DynamicLayout>
         </main>
       </Provider>
     </>
